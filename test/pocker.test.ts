@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { getCardValue, getCardSuit } from "../src/pocker"
-import { Hand, isBrelan, isFlush, getBestCombination } from "../src/pocker"
+import { Hand, isBrelan, isSuite, getBestCombination } from "../src/pocker"
 
 describe("Get card Value", () => {
     it.each([
@@ -44,30 +44,30 @@ describe('poker basics', () => {
         expect(isBrelan(hand)).toBe(true);
     });
 
-    it('detect a flush', () => {
+    it('detect a suite', () => {
         const hand: Hand = [
-            { value: 14, suit: 'H' },
             { value: 10, suit: 'H' },
-            { value: 8, suit: 'H' },
-            { value: 5, suit: 'H' },
-            { value: 2, suit: 'H' }
+            { value: 9, suit: 'S' },
+            { value: 8, suit: 'D' },
+            { value: 7, suit: 'H' },
+            { value: 6, suit: 'C' }
         ];
 
-        expect(isFlush(hand)).toBe(true);
+        expect(isSuite(hand)).toBe(true);
     });
 });
 
 describe('Get best combination', () => {
-    it('return Flush when the hand is a flush', () => {
+    it('return Suite when the hand is a suite', () => {
         const hand: Hand = [
-            { value: 14, suit: 'H' },
             { value: 10, suit: 'H' },
-            { value: 8, suit: 'H' },
-            { value: 5, suit: 'H' },
-            { value: 2, suit: 'H' }
+            { value: 9, suit: 'S' },
+            { value: 8, suit: 'D' },
+            { value: 7, suit: 'H' },
+            { value: 6, suit: 'C' }
         ];
 
-        expect(getBestCombination(hand)).toBe('Flush');
+        expect(getBestCombination(hand)).toBe('Suite');
     });
 
     it('return Brelan when the hand is a brelan', () => {
@@ -82,7 +82,7 @@ describe('Get best combination', () => {
         expect(getBestCombination(hand)).toBe('Brelan');
     });
 
-    it('return None when there is neither brelan nor flush', () => {
+    it('return None when there is neither brelan nor suite', () => {
         const hand: Hand = [
             { value: 14, suit: 'H' },
             { value: 10, suit: 'C' },
