@@ -49,3 +49,12 @@ export const getBestCombination = (hand: Hand): 'Suite' | 'Brelan' | 'None' => {
 
     return 'None';
 };
+
+export const getResult = (s: string) => {
+    switch (s) {
+        case 'Suite':
+            return 40;
+        case 'Brelan':
+            return 30;
+    }
+}

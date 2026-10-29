@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getCardValue, getCardSuit } from "../src/pocker"
+import { getCardValue, getCardSuit, getResult } from "../src/pocker"
 import { Hand, isBrelan, isSuite, getBestCombination } from "../src/pocker"
 
 describe("Get card Value", () => {
@@ -92,5 +92,15 @@ describe('Get best combination', () => {
         ];
 
         expect(getBestCombination(hand)).toBe('None');
+    });
+});
+
+describe('getResult', () => {
+    it('returns the score for a suite', () => {
+        expect(getResult('Suite')).toBe(40);
+    });
+
+    it('returns the score for a brelan', () => {
+        expect(getResult('Brelan')).toBe(30);
     });
 });
