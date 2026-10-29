@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getCardValue, getCardSuit, getResult } from "../src/pocker"
+import { getCardValue, getCardSuit, getResult, isColor } from "../src/pocker"
 import { Hand, isBrelan, isSuite, getBestCombination } from "../src/pocker"
 
 describe("Get card Value", () => {
@@ -55,6 +55,19 @@ describe('poker basics', () => {
 
         expect(isSuite(hand)).toBe(true);
     });
+
+    it('detect a color', () => {
+        const hand: Hand = [
+            { value: 10, suit: 'H' },
+            { value: 9, suit: 'H' },
+            { value: 8, suit: 'H' },
+            { value: 7, suit: 'H' },
+            { value: 6, suit: 'H' }
+        ];
+
+        expect(isColor(hand)).toBe(true);
+    });
+
 });
 
 describe('Get best combination', () => {

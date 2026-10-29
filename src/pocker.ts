@@ -38,6 +38,10 @@ export const isSuite = (hand: Hand): boolean => {
     return uniqueValues.every((value, index) => index === 0 || value === uniqueValues[index - 1] + 1);
 };
 
+export const isColor = (hand: Hand): boolean => {
+    return true;
+}
+
 export const getBestCombination = (hand: Hand): 'Suite' | 'Brelan' | 'None' => {
     if (isSuite(hand)) {
         return 'Suite';
