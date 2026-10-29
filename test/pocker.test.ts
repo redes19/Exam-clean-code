@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { getCardValue, getCardSuit } from "../src/pocker"
-import { Hand, isPair, isFlush, getBestCombination } from "../src/pocker"
+import { Hand, isBrelan, isFlush, getBestCombination } from "../src/pocker"
 
 describe("Get card Value", () => {
     it.each([
@@ -32,16 +32,16 @@ describe("Get card suit", () => {
 })
 
 describe('poker basics', () => {
-    it('detect a pair', () => {
+    it('detect a brelan', () => {
         const hand: Hand = [
             { value: 9, suit: 'C' },
-            { value: 9, suit: 'S' },
+            { value: 9, suit: 'C' },
             { value: 5, suit: 'D' },
             { value: 3, suit: 'H' },
-            { value: 2, suit: 'C' }
+            { value: 9, suit: 'C' }
         ];
 
-        expect(isPair(hand)).toBe(true);
+        expect(isBrelan(hand)).toBe(true);
     });
 
     it('detect a flush', () => {
@@ -70,19 +70,19 @@ describe('Get best combination', () => {
         expect(getBestCombination(hand)).toBe('Flush');
     });
 
-    it('return Pair when the hand is a pair', () => {
+    it('return Brelan when the hand is a brelan', () => {
         const hand: Hand = [
             { value: 9, suit: 'C' },
-            { value: 9, suit: 'S' },
+            { value: 9, suit: 'C' },
             { value: 5, suit: 'D' },
             { value: 3, suit: 'H' },
-            { value: 2, suit: 'C' }
+            { value: 9, suit: 'C' }
         ];
 
-        expect(getBestCombination(hand)).toBe('Pair');
+        expect(getBestCombination(hand)).toBe('Brelan');
     });
 
-    it('return None when there is neither pair nor flush', () => {
+    it('return None when there is neither brelan nor flush', () => {
         const hand: Hand = [
             { value: 14, suit: 'H' },
             { value: 10, suit: 'C' },

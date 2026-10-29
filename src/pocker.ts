@@ -16,12 +16,12 @@ export const getCardSuit = (card: Card): string => {
     return card.suit;
 }
 
-export const isPair = (hand: Hand): boolean => {
+export const isBrelan = (hand: Hand): boolean => {
     const values = hand.map(card => getCardValue(card));
 
     for (const value of values) {
         const count = values.filter(v => v === value).length
-        if (count === 2) return true;
+        if (count === 3) return true;
     }
 
     return false;
@@ -32,13 +32,13 @@ export const isFlush = (hand: Hand): boolean => {
     return hand.every(card => card.suit === hand[0].suit);
 };
 
-export const getBestCombination = (hand: Hand): 'Flush' | 'Pair' | 'None' => {
+export const getBestCombination = (hand: Hand): 'Flush' | 'Brelan' | 'None' => {
     if (isFlush(hand)) {
         return 'Flush';
     }
 
-    if (isPair(hand)) {
-        return 'Pair';
+    if (isBrelan(hand)) {
+        return 'Brelan';
     }
 
     return 'None';
