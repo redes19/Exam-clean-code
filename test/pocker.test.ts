@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { getCardValue, getCardSuit } from "../src/pocker"
-import { Card, Hand, isPair, isFlush } from "../src/pocker"
+import { Hand, isPair, isFlush, getBestCombination } from "../src/pocker"
 
 describe("Get card Value", () => {
     it.each([
@@ -32,7 +32,7 @@ describe("Get card suit", () => {
 })
 
 describe('poker basics', () => {
-    it('should detect a pair', () => {
+    it('detect a pair', () => {
         const hand: Hand = [
             { value: 9, suit: 'C' },
             { value: 9, suit: 'S' },
@@ -44,7 +44,7 @@ describe('poker basics', () => {
         expect(isPair(hand)).toBe(true);
     });
 
-    it('should detect a flush', () => {
+    it('detect a flush', () => {
         const hand: Hand = [
             { value: 14, suit: 'H' },
             { value: 10, suit: 'H' },
@@ -54,5 +54,43 @@ describe('poker basics', () => {
         ];
 
         expect(isFlush(hand)).toBe(true);
+    });
+});
+
+describe('Get best combination', () => {
+    it('return Flush when the hand is a flush', () => {
+        const hand: Hand = [
+            { value: 14, suit: 'H' },
+            { value: 10, suit: 'H' },
+            { value: 8, suit: 'H' },
+            { value: 5, suit: 'H' },
+            { value: 2, suit: 'H' }
+        ];
+
+        expect(getBestCombination(hand)).toBe('Flush');
+    });
+
+    it('return Pair when the hand is a pair', () => {
+        const hand: Hand = [
+            { value: 9, suit: 'C' },
+            { value: 9, suit: 'S' },
+            { value: 5, suit: 'D' },
+            { value: 3, suit: 'H' },
+            { value: 2, suit: 'C' }
+        ];
+
+        expect(getBestCombination(hand)).toBe('Pair');
+    });
+
+    it('return None when there is neither pair nor flush', () => {
+        const hand: Hand = [
+            { value: 14, suit: 'H' },
+            { value: 10, suit: 'C' },
+            { value: 8, suit: 'D' },
+            { value: 5, suit: 'S' },
+            { value: 2, suit: 'H' }
+        ];
+
+        expect(getBestCombination(hand)).toBe('None');
     });
 });

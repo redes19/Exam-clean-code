@@ -8,30 +8,6 @@ export type Card = {
 
 export type Hand = Card[];
 
-const hands: Card[][] = [
-    [
-        { value: 14, suit: 'H' },
-        { value: 13, suit: 'H' },
-        { value: 12, suit: 'H' },
-        { value: 11, suit: 'H' },
-        { value: 10, suit: 'H' }
-    ],
-    [
-        { value: 9, suit: 'C' },
-        { value: 9, suit: 'S' },
-        { value: 5, suit: 'D' },
-        { value: 3, suit: 'H' },
-        { value: 2, suit: 'C' }
-    ],
-    [
-        { value: 7, suit: 'D' },
-        { value: 7, suit: 'H' },
-        { value: 7, suit: 'S' },
-        { value: 4, suit: 'C' },
-        { value: 4, suit: 'D' }
-    ]
-];
-
 export const getCardValue = (card: Card): number => {
     return card.value;
 }
@@ -41,9 +17,29 @@ export const getCardSuit = (card: Card): string => {
 }
 
 export const isPair = (hand: Hand): boolean => {
-    return true;
+    const values = hand.map(card => getCardValue(card));
+
+    for (const value of values) {
+        const count = values.filter(v => v === value).length
+        if (count === 2) return true;
+    }
+
+    return false;
+
 };
 
 export const isFlush = (hand: Hand): boolean => {
-    return true;
+    return hand.every(card => card.suit === hand[0].suit);
+};
+
+export const getBestCombination = (hand: Hand): 'Flush' | 'Pair' | 'None' => {
+    if (isFlush(hand)) {
+        return 'Flush';
+    }
+
+    if (isPair(hand)) {
+        return 'Pair';
+    }
+
+    return 'None';
 };
